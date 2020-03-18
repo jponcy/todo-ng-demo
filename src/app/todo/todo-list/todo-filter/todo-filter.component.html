@@ -1,0 +1,16 @@
+<form [formGroup]="form">
+
+  <mat-form-field>
+    <mat-label>Titre de la tâche</mat-label>
+    <input type="text" formControlName="label" matInput>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Tags</mat-label>
+
+    <mat-select formControlName="tags" multiple="true">
+      <mat-option value="">Sans tag</mat-option>
+      <mat-option *ngFor="let e of tags" [value]="e.id">{{ e.name }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

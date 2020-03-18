@@ -1,0 +1,31 @@
+<ng-template #loading>Chargement...</ng-template>
+
+<article>
+  <h1>Liste des tâches</h1>
+
+  <app-todo-filter (filter)="onFilter($event)"></app-todo-filter>
+
+  <p *ngIf="filteredTasks">
+    Affichage de {{ filteredTasks.length }}/{{ totalNb }} tâches.
+  </p>
+
+  <button mat-raised-button color="accent" (click)="onClear()">Supprimer tâches finies</button>
+
+  <table *ngIf="filteredTasks; else loading">
+    <tbody>
+      <tr *ngFor="let todo of filteredTasks" (click)="onClick(todo)" [ngClass]="{'with-tags': todo.tags && todo.tags.length}">
+        <td><input type="checkbox" [checked]="todo.finishedAt"></td>
+        <td [ngClass]="{finished: todo.finishedAt}">
+          {{ todo.label }}
+
+          <div>
+            <ul class="tags" *ngIf="todo.tags">
+              <li *ngFor="let tag of todo.tags" [ngStyle]="{backgroundColor: tag.color}">{{ tag.name }}</li>
+            </ul>
+          </div>
+        </td>
+        <td (click)="onDelete(todo, $event)">&#10060;</td>
+      </tr>
+    </tbody>
+  </table>
+</article>
